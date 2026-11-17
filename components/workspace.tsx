@@ -446,7 +446,7 @@ export function Workspace({ tool, chips, hero = false }: { tool: Tool; chips?: T
                   onChange={(crop) => setSettings((current) => ({ ...current, crop }))}
                 />
               ) : selected ? (
-                <Compare before={selected.url} after={selected.resultUrl} />
+                <Compare before={selected.url} after={selected.resultUrl} lossless={Boolean(selected.lossless)} />
               ) : null}
               {selected?.status === "working" ? (
                 <div>
