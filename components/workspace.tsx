@@ -427,7 +427,7 @@ export function Workspace({ tool, chips, hero = false }: { tool: Tool; chips?: T
               {items.length > 1 ? (
                 <div className="film" aria-label="Photos in this set">
                   {items.map((item) => (
-                    <button key={item.id} type="button" aria-pressed={item.id === selected?.id} onClick={() => setSelectedId(item.id)}>
+                    <button key={item.id} type="button" aria-pressed={item.id === selected?.id} aria-label={item.file.name} onClick={() => setSelectedId(item.id)}>
                       <img src={item.url} alt="" />
                     </button>
                   ))}

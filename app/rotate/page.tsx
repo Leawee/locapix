@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import { ToolScreen } from "@/components/tool-screen";
+import { toolMetadata } from "@/lib/seo";
 import { getTool } from "@/lib/tools";
 
 const tool = getTool("rotate");
 
-export const metadata: Metadata = {
-  title: tool.metaTitle,
-  description: tool.description,
-  alternates: { canonical: tool.path },
-};
+export const metadata: Metadata = toolMetadata(tool);
 
 export default function Page() {
   return <ToolScreen tool={tool} />;

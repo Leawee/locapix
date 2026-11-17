@@ -1,18 +1,29 @@
+import Link from "next/link";
 import { WorkspaceClient } from "@/components/workspace-client";
-import type { Tool } from "@/lib/tools";
+import { absoluteUrl } from "@/lib/seo";
+import { tools, type Tool } from "@/lib/tools";
 
 export function ToolScreen({ tool }: { tool: Tool }) {
+  const url = absoluteUrl(tool.path);
+  const related = tools.filter((item) => item.showInGrid && item.path !== tool.path).slice(0, 4);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        name: `locapix ${tool.title}`,
+        name: tool.metaTitle,
         applicationCategory: "MultimediaApplication",
         operatingSystem: "Web",
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         description: tool.description,
-        url: `https://locapix.app${tool.path}`,
+        url,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+          { "@type": "ListItem", position: 2, name: tool.title, item: url },
+        ],
       },
       {
         "@type": "FAQPage",
@@ -46,6 +57,15 @@ export function ToolScreen({ tool }: { tool: Tool }) {
             </details>
           ))}
         </div>
+        <h2>Other tools</h2>
+        <p>
+          {related.map((item, index) => (
+            <span key={item.path}>
+              {index > 0 ? " · " : null}
+              <Link href={item.path}>{item.title}</Link>
+            </span>
+          ))}
+        </p>
       </section>
     </>
   );

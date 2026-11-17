@@ -1,17 +1,29 @@
 import { HomeSections } from "@/components/home-sections";
 import { TrustIcons } from "@/components/icons";
 import { WorkspaceClient } from "@/components/workspace-client";
+import { absoluteUrl } from "@/lib/seo";
 import { getTool } from "@/lib/tools";
 
 const homeJsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "locapix",
-  applicationCategory: "MultimediaApplication",
-  operatingSystem: "Web",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  description: "Compress, resize, convert, and clean photos in your browser. Photos never leave your device.",
-  url: "https://locapix.app",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: "locapix",
+      url: absoluteUrl("/"),
+      description: "Compress, resize, convert, and clean photos in your browser. Photos never leave your device.",
+      inLanguage: "en",
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "locapix",
+      applicationCategory: "MultimediaApplication",
+      operatingSystem: "Web",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      description: "Compress, resize, convert, and clean photos in your browser. Photos never leave your device.",
+      url: absoluteUrl("/"),
+    },
+  ],
 };
 
 export default function HomePage() {
