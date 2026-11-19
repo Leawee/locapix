@@ -276,6 +276,14 @@ h1 {
   letter-spacing: -1px;
   font-weight: 700;
 }
+.story h2 {
+  margin: 32px 0 8px;
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
+  font-weight: 600;
+}
+.preset-row { padding-top: 4px; }
 .section .sub { color: var(--muted); margin: 10px 0 0; font-size: 18px; }
 .tool-grid, .steps { display: grid; gap: 16px; margin-top: 28px; }
 .tool-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -323,6 +331,9 @@ h1 {
 .site-footer a { color: var(--footer-text); text-decoration: none; font-size: 14px; font-weight: 500; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 16px; max-width: 640px; }
 .site-footer .fine { color: #b99179; font-size: 13px; }
+.footer-more { margin-top: 28px; }
+.footer-more .fine { margin: 0 0 10px; }
+.footer-more .footer-links { max-width: none; }
 .legal { max-width: 760px; }
 .legal h1 { font-size: 48px; line-height: 1.1; letter-spacing: -1.5px; }
 .legal h2 { font-size: 24px; letter-spacing: -0.4px; margin-top: 28px; }

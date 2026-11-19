@@ -1,8 +1,14 @@
-import { HomeSections } from "@/components/home-sections";
+import type { Metadata } from "next";
+import { HomeSections, homeFaqs } from "@/components/home-sections";
 import { TrustIcons } from "@/components/icons";
 import { WorkspaceClient } from "@/components/workspace-client";
 import { absoluteUrl } from "@/lib/seo";
 import { getTool } from "@/lib/tools";
+
+export const metadata: Metadata = {
+  alternates: { canonical: absoluteUrl("/") },
+  openGraph: { url: absoluteUrl("/") },
+};
 
 const homeJsonLd = {
   "@context": "https://schema.org",
@@ -22,6 +28,14 @@ const homeJsonLd = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       description: "Compress, resize, convert, and clean photos in your browser. Photos never leave your device.",
       url: absoluteUrl("/"),
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: homeFaqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
     },
   ],
 };

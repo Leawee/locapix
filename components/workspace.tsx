@@ -9,7 +9,7 @@ import { Compare } from "@/components/compare";
 import { Cropper, fitAspect, type Crop } from "@/components/cropper";
 import { useRegisterDrop } from "@/components/providers";
 import { SIZE_PRESETS, formatBytes, savedPercent } from "@/lib/bytes";
-import { clearStaged, peekStaged, stageFiles } from "@/lib/inbox";
+import { clearStaged, peekStaged, rememberOpenFiles, stageFiles } from "@/lib/inbox";
 import { getPool } from "@/lib/pool";
 import { defaultSettings, type Settings, type ToolKind } from "@/lib/process/types";
 import type { Tool } from "@/lib/tools";
@@ -141,6 +141,10 @@ export function Workspace({ tool, chips, hero = false }: { tool: Tool; chips?: T
   }, []);
 
   useRegisterDrop(addFiles);
+
+  useEffect(() => {
+    rememberOpenFiles(items.map((item) => item.file));
+  }, [items]);
 
   useEffect(() => {
     const staged = peekStaged();
@@ -552,9 +556,9 @@ export function Workspace({ tool, chips, hero = false }: { tool: Tool; chips?: T
             {SIZE_PRESETS.map((preset) => chipMode === "route" ? (
               <Link
                 key={preset.path}
-                className={preset.bytes === tool.targetBytes ? "chip is-on" : "chip"}
+                className={preset.path === tool.path ? "chip is-on" : "chip"}
                 href={preset.path}
-                aria-current={preset.bytes === tool.targetBytes ? "page" : undefined}
+                aria-current={preset.path === tool.path ? "page" : undefined}
                 onClick={() => stageFiles(itemsRef.current.map((item) => item.file))}
               >
                 {preset.label}

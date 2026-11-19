@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   title: { default: "locapix — Your photos stay yours", template: "%s · locapix" },
   description,
   applicationName: "locapix",
-  alternates: { canonical: siteUrl },
   robots: {
     index: true,
     follow: true,
@@ -28,7 +27,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "locapix — Your photos stay yours",
     description,
-    url: siteUrl,
     siteName: "locapix",
     type: "website",
     locale: "en_US",

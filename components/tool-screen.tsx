@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { PresetLinks } from "@/components/preset-links";
 import { WorkspaceClient } from "@/components/workspace-client";
+import { SIZE_PRESETS } from "@/lib/bytes";
 import { absoluteUrl } from "@/lib/seo";
-import { tools, type Tool } from "@/lib/tools";
+import { formatLinks, tools, type Tool } from "@/lib/tools";
+
+const sizeLinks = SIZE_PRESETS.map((preset) => ({ href: preset.path, label: preset.label }));
 
 export function ToolScreen({ tool }: { tool: Tool }) {
   const url = absoluteUrl(tool.path);
@@ -44,11 +48,27 @@ export function ToolScreen({ tool }: { tool: Tool }) {
         <h1>{tool.title}</h1>
         <p className="lede" style={{ marginLeft: 0 }}>{tool.lede}</p>
       </header>
+      {tool.kind === "target" ? (
+        <div className="wrap preset-row">
+          <PresetLinks label="Common file sizes" currentPath={tool.path} links={sizeLinks} />
+        </div>
+      ) : null}
+      {tool.kind === "convert" ? (
+        <div className="wrap preset-row">
+          <PresetLinks label="Format conversions" currentPath={tool.path} links={formatLinks} />
+        </div>
+      ) : null}
       <div className="wrap">
         <WorkspaceClient tool={tool} />
       </div>
       <section className="section wrap story">
         {tool.story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        {tool.sections?.map((section) => (
+          <div key={section.heading}>
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+        ))}
         <div className="faq">
           {tool.faqs.map((faq) => (
             <details key={faq.q}>
@@ -66,6 +86,16 @@ export function ToolScreen({ tool }: { tool: Tool }) {
             </span>
           ))}
         </p>
+        {tool.links?.length ? (
+          <p>
+            {tool.links.map((item, index) => (
+              <span key={item.href}>
+                {index > 0 ? " · " : null}
+                <Link href={item.href}>{item.label}</Link>
+              </span>
+            ))}
+          </p>
+        ) : null}
       </section>
     </>
   );

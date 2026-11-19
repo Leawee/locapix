@@ -2,6 +2,21 @@ import Link from "next/link";
 import { Glyph } from "@/components/icons";
 import { gridTools } from "@/lib/tools";
 
+export const homeFaqs = [
+  {
+    q: "Do you upload my photo?",
+    a: "No. The photo is decoded and encoded in your browser. It is not sent to a locapix server.",
+  },
+  {
+    q: "Do I need an account?",
+    a: "No. Open the page and use it. There is nothing to sign up for.",
+  },
+  {
+    q: "Will it work offline?",
+    a: "After the page and the encoder for that format have loaded once, you can keep working without a connection.",
+  },
+];
+
 const palette = [
   { card: "#FFF6EC", bubble: "#FFE0C7", stroke: "#E0692E" },
   { card: "#F0F5FF", bubble: "#D8E6FF", stroke: "#5B7BD5" },
@@ -36,6 +51,17 @@ export function HomeSections() {
             );
           })}
         </div>
+        <p className="more-link">
+          <Link href="/compress-to-200kb">Compress to 200KB</Link>
+          {" · "}
+          <Link href="/heic-to-jpg">HEIC to JPG</Link>
+          {" · "}
+          <Link href="/png-to-jpg">PNG to JPG</Link>
+          {" · "}
+          <Link href="/jpg-to-webp">JPG to WebP</Link>
+          {" · "}
+          <Link href="/compress-to-1mb">Compress to 1MB</Link>
+        </p>
         <p className="more-link"><Link href="/batch">Have a pile of photos? Process them as a batch.</Link></p>
       </section>
       <section className="section wrap" id="how">
@@ -52,18 +78,12 @@ export function HomeSections() {
           ))}
         </div>
         <div className="faq">
-          <details>
-            <summary>Do you upload my photo?</summary>
-            <p>No. The photo is decoded and encoded in your browser. It is not sent to a locapix server.</p>
-          </details>
-          <details>
-            <summary>Do I need an account?</summary>
-            <p>No. Open the page and use it. There is nothing to sign up for.</p>
-          </details>
-          <details>
-            <summary>Will it work offline?</summary>
-            <p>After the page and the encoder for that format have loaded once, you can keep working without a connection.</p>
-          </details>
+          {homeFaqs.map((faq) => (
+            <details key={faq.q}>
+              <summary>{faq.q}</summary>
+              <p>{faq.a}</p>
+            </details>
+          ))}
         </div>
       </section>
     </>

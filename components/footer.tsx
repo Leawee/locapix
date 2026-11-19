@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { tools } from "@/lib/tools";
 
 const links = [
   ["/", "Home"],
@@ -15,6 +16,9 @@ const links = [
   ["/terms", "Terms"],
 ] as const;
 
+const linked = new Set<string>(links.map(([href]) => href));
+const more = tools.filter((tool) => !linked.has(tool.path));
+
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -26,6 +30,14 @@ export function Footer() {
         <nav className="footer-links" aria-label="Footer">
           {links.map(([href, label]) => (
             <Link key={href} href={href}>{label}</Link>
+          ))}
+        </nav>
+      </div>
+      <div className="wrap footer-more">
+        <p className="fine">Sizes and formats</p>
+        <nav className="footer-links" aria-label="Sizes and formats">
+          {more.map((tool) => (
+            <Link key={tool.path} href={tool.path}>{tool.title}</Link>
           ))}
         </nav>
       </div>
