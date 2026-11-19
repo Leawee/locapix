@@ -18,11 +18,20 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  async redirects() {
+    return [
+      { source: "/heic-to-jpeg", destination: "/heic-to-jpg", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
         source: "/sw.js",
         headers: [{ key: "Cache-Control", value: "no-cache" }],
+      },
+      {
+        source: "/llms.txt",
+        headers: [{ key: "Content-Type", value: "text/plain; charset=utf-8" }],
       },
     ];
   },
